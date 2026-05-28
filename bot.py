@@ -55,6 +55,14 @@ async def create_room(
         f"생성용 채널 생성 완료: {voice_channel.mention}"
     )
 
+#핑퐁 커맨드
+@bot.tree.command(
+    name="핑",
+    description="봇이 응답하는지 테스트하는 명령어입니다."
+)
+async def ping(interaction: discord.Interaction):
+    await interaction.response.send_message("퐁!")
+
 
 # 음성 상태 변경 감지
 @bot.event
