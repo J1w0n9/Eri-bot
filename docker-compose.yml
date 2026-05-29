@@ -1,5 +1,7 @@
 services:
+
   bot:
+
     build: .
 
     container_name: discord-bot
@@ -8,3 +10,42 @@ services:
 
     env_file:
       - .env
+
+    depends_on:
+      - postgres-db
+
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
+
+    environment:
+      PYTHONUNBUFFERED: 1
+
+
+  postgres-db:
+
+    image: postgres:16
+
+    container_name: postgres-db
+
+    restart: always
+
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: eri_bot
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
+
+
+volumes:
+
+  postgres_data:
